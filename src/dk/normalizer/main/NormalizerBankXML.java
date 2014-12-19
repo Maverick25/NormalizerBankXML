@@ -5,6 +5,9 @@
  */
 package dk.normalizer.main;
 
+import dk.normalizer.controller.NormalizeFromBankXML;
+import java.io.IOException;
+
 /**
  *
  * @author marekrigan
@@ -14,8 +17,8 @@ public class NormalizerBankXML {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args) throws IOException, InterruptedException {
+        NormalizeFromBankXML.receiveMessages();
     }
     
 }

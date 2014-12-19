@@ -40,7 +40,7 @@ public class NormalizeFromBankXML
 //          AMQP.BasicProperties replyProps = new AMQP.BasicProperties.Builder().correlationId(props.getCorrelationId()).build();
 //          System.out.println(props.getCorrelationId());
 //          System.out.println(props.getReplyTo());
-          
+            System.out.println(message);
           
           
 //          loanResponseDTO = gson.fromJson(message, LoanResponseDTO.class);

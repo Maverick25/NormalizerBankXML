@@ -19,7 +19,7 @@ import java.util.HashMap;
  */
 public class Receive 
 {
-    private static final String TASK_QUEUE_NAME = "queue_normalizerBankRabbit";
+    private static final String TASK_QUEUE_NAME = "queue_normalizerBankXML";
     private static Connection connection;
     private static Channel channel;
     
