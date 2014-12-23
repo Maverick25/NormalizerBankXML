@@ -16,6 +16,8 @@ public class NormalizerBankXML {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
+     * @throws java.lang.InterruptedException
      */
     public static void main(String[] args) throws IOException, InterruptedException {
         NormalizeFromBankXML.receiveMessages();

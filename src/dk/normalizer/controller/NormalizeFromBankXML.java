@@ -6,8 +6,10 @@
 package dk.normalizer.controller;
 
 import com.google.gson.Gson;
+import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.QueueingConsumer;
+import com.thoughtworks.xstream.XStream;
 import dk.normalizer.dto.LoanResponseDTO;
 import dk.normalizer.messaging.Receive;
 import java.io.IOException;
@@ -31,25 +33,26 @@ public class NormalizeFromBankXML
         Channel channel = (Channel) objects.get("channel");
         
         LoanResponseDTO loanResponseDTO;
+        XStream xStream = new XStream();
         
         while (true) 
         {
           QueueingConsumer.Delivery delivery = consumer.nextDelivery();
           String message = new String(delivery.getBody());
-//          AMQP.BasicProperties props = delivery.getProperties();
-//          AMQP.BasicProperties replyProps = new AMQP.BasicProperties.Builder().correlationId(props.getCorrelationId()).build();
-//          System.out.println(props.getCorrelationId());
+          
+          AMQP.BasicProperties props = delivery.getProperties();
+          AMQP.BasicProperties replyProps = new AMQP.BasicProperties.Builder().correlationId(props.getCorrelationId()).build();
+          System.out.println("CorrelationID = "+props.getCorrelationId());
 //          System.out.println(props.getReplyTo());
-            System.out.println(message);
+          System.out.println(message);
+            
+            loanResponseDTO = (LoanResponseDTO) xStream.fromXML(message);
           
-          
-//          loanResponseDTO = gson.fromJson(message, LoanResponseDTO.class);
-          
-//          System.out.println(loanResponseDTO.toString());
+            System.out.println("Converted from XML: "+loanResponseDTO.toString());
           
 //          sendMessage();
 
-          channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+            channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
         }
         
     }
